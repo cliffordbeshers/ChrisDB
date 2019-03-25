@@ -43,6 +43,8 @@ findMissingKey = do
   !keys <- Set.fromList . fmap (myStrict . TL.strip) . tail . TL.lines <$> liftIO (TL.readFile little)
   -- liftIO $ print ("keys", Set.size keys)
   timestamp "key file loaded"
+  liftIO $ print ("size keys", Set.size keys)
+  timestamp "(size keys) printed"
   records <- (tail . TL.lines) <$> liftIO (TL.readFile big)
   liftIO $ mapM_ (printMissing keys) records
   timestamp "record file finished"
